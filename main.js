@@ -5,6 +5,7 @@ var fullDeck = [{face: "ace", val: 11, "suit": "clubs"},
 				 {face: "king", val: 10, "suit": "clubs"},
 				 {face: "queen", val: 10, "suit": "clubs"},
 				 {face: "jack", val: 10, "suit": "clubs"},
+				 {face: "ten", val: 10, "suit": "clubs"},
 				 {face: "nine", val: 9, "suit": "clubs"},
 				 {face: "eight", val: 8, "suit": "clubs"},
 				 {face: "seven", val: 7, "suit": "clubs"},
@@ -17,6 +18,7 @@ var fullDeck = [{face: "ace", val: 11, "suit": "clubs"},
 				 {face: "king", val: 10, "suit": "hearts"},
 				 {face: "queen", val: 10, "suit": "hearts"},
 				 {face: "jack", val: 10, "suit": "hearts"},
+				 {face: "ten", val: 10, "suit": "hearts"},
 				 {face: "nine", val: 9, "suit": "hearts"},
 				 {face: "eight", val: 8, "suit": "hearts"},
 				 {face: "seven", val: 7, "suit": "hearts"},
@@ -29,6 +31,7 @@ var fullDeck = [{face: "ace", val: 11, "suit": "clubs"},
 				 {face: "king", val: 10, "suit": "spades"},
 				 {face: "queen", val: 10, "suit": "spades"},
 				 {face: "jack", val: 10, "suit": "spades"},
+				 {face: "ten", val: 10, "suit": "spades"},
 				 {face: "nine", val: 9, "suit": "spades"},
 				 {face: "eight", val: 8, "suit": "spades"},
 				 {face: "seven", val: 7, "suit": "spades"},
@@ -41,6 +44,7 @@ var fullDeck = [{face: "ace", val: 11, "suit": "clubs"},
 				 {face: "king", val: 10, "suit": "diamonds"},
 				 {face: "queen", val: 10, "suit": "diamonds"},
 				 {face: "jack", val: 10, "suit": "diamonds"},
+				 {face: "ten", val: 10, "suit": "diamonds"},
 				 {face: "nine", val: 9, "suit": "diamonds"},
 				 {face: "eight", val: 8, "suit": "diamonds"},
 				 {face: "seven", val: 7, "suit": "diamonds"},
@@ -58,10 +62,11 @@ var dealerHand = [];
 function dealCard(recipient) {
 	var rand = fullDeck[Math.floor(Math.random() * fullDeck.length)];
 	recipient.push(rand);
+	fullDeck.pop(rand);
 	console.log(rand);
 	handValue(recipient);
 	// this function will deal another card to the specified recipient
-	// take a random sample from the deck array and push it into the hand array
+	// take a random sample from the deck array and push it into the hand array, while popping it from the deck
 	// it should also check the new value of the hand in question
 	// if the new value equals a match outcome, trigger that outcome
 }
@@ -85,10 +90,7 @@ function handValue(recipient) {
 	}
 	// this function should evaluate the total value of a hand
 	// once the value is found, decide if an outcome is triggered
-}
-
-function isAce(arr) {
-	return arr.val === 11;
+	// if a high value ace is present, run reduceAce and re-evaluate
 }
 
 var index = fullDeck.map(function(e) { return e.face; }).indexOf('ace');
@@ -100,6 +102,7 @@ function isAce(recipient) {
 	} else {
 		return true;	
 	}
+	// this function checks a hand to see if a high-value ace is present
 }
 
 function reduceAce(recipient) {
@@ -110,6 +113,21 @@ function reduceAce(recipient) {
 				 		}
 				 	recipient[index].val = 1;
 				 	break;
-				 	// console.log(fullDeck[index].val);
 				 }
+	// if a high-value ace is present, it iterates through a hand and reduces it to 1, then breaks
+	// if no high value ace is present, it breaks
+}
+
+function newMatch(recipient) {
+	for (var i = 0; i < recipient.length; i++) {
+		if (recipient[i].val === 1) {
+			recipient[i].val = 11;
+			fullDeck.push(recipient[i]);
+		}	else {
+			fullDeck.push(recipient[i]);
+		}
+	}
+	recipient.splice(0, recipient.length);
+	// this function returns all cards in play to the original deck
+	// it also checks for any low-value aces and resets them to 11 before returning them
 }
