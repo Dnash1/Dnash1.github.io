@@ -58,8 +58,8 @@ var fullDeck = [{face: "ace", val: 11, "suit": "clubs"},
 $("#hit").click(function() {
 	dealCard(playerHand);
 });
-$("#stand").click(function() {
-
+$("#stay").click(function() {
+	dealerTurn();
 });
 $("#new").click(function() {
 	newMatch(playerHand);
@@ -95,6 +95,16 @@ function dealCard(recipient) {
 	// if the new value equals a match outcome, trigger that outcome
 }
 
+function evalHand(recipient) {
+	handVal = 0;
+	for (var i = 0; i < recipient.length; i++) {
+		handVal += recipient[i].val;
+		console.log(handVal);
+	}
+	return handVal;
+	// necessary to have a function that only adds the hand up, nothing else
+}
+
 function handValue(recipient) {
 	handVal = 0;
 	for (var i = 0; i < recipient.length; i++) {
@@ -102,7 +112,13 @@ function handValue(recipient) {
 		console.log(handVal);
 	}
 	if (handVal < 21) {
-		console.log("Under 21");
+		if (recipient === playerHand) {
+			console.log("Player under 21");	
+		} else if (recipient === dealerHand) {
+			console.log("Dealer under 21");
+			dealerTurn();
+		}
+		
 	} else if (handVal === 21) {
 		if (recipient === playerHand) {
 			console.log("Player Blackjack!");
@@ -184,20 +200,41 @@ function newMatch(recipient) {
 }
 
 function dealerTurn() {
-	var pScore = handValue(playerHand);
-	var dScore = handValue(dealerHand);
-	if (dScore >= pScore) {
-		console.log("Dealer wins!");
-	} else if (pScore > dScore) {
-		while ((pScore > dScore) && (dScore < 21)) {
-			console.log("Dealer draws...");
-			setTimeout(dealCard(dealerHand), 2000)
-			setTimeout(handValue(dealerHand), 4000)
-		}
+	var pScore = evalHand(playerHand);
+	var dScore = evalHand(dealerHand);
+	if (dScore < pScore) {
+		console.log("Dealer drawing");
+		dealCard(dealerHand);
+		handValue(dealerHand);
+	} else if (dScore >= pScore) {
 		console.log("Dealer wins!");
 		pot = 0;
-		newMatch(playerHand);
 		newMatch(dealerHand);
+		newMatch(playerHand);
+
+
+
+
+		// while ((pScore > dScore) && (dScore < 21)) {
+		// 	console.log("Dealer draws...");
+		// 	setTimeout(dealCard(dealerHand), 2000)
+		// 	setTimeout(handValue(dealerHand), 4000)
+		// 	if ((dScore === 21) || (dScore > pScore)) {
+		// 		console.log("Dealer wins!");
+		// 		pot = 0;
+		// 		newMatch(playerHand);
+		// 		newMatch(dealerHand);
+		// 		break;
+		// 	} else if (dScore > 21) {
+		// 		consolelog("Player wins!");
+		// 		bankRoll = (bankRoll + (pot * 2));
+		// 		pot = 0;
+		// 		newMatch(dealerHand);
+		// 		newMatch(playerHand);
+		// 		break;
+		// 	}
+		// }
+		
 	}
 	// this function will activate a dealer's turn when the player has chosen to stand
 	// the dealer must continue to draw cards until he either beats the player's hand or busts
