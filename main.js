@@ -63,6 +63,7 @@ $("#stay").click(function() {
 });
 $("#new").click(function() {
 	newMatch(playerHand);
+	newMatch(dealerHand);
 });
 
 // player and dealer hands
@@ -88,14 +89,14 @@ function dealCard(recipient) {
 	recipient.push(rand);
 	fullDeck.pop(rand);
 	console.log(rand);
-	handValue(recipient);
+	handEval(recipient);
 	// this function will deal another card to the specified recipient
 	// take a random sample from the deck array and push it into the hand array, while popping it from the deck
 	// it should also check the new value of the hand in question
 	// if the new value equals a match outcome, trigger that outcome
 }
 
-function evalHand(recipient) {
+function handValue(recipient) {
 	handVal = 0;
 	for (var i = 0; i < recipient.length; i++) {
 		handVal += recipient[i].val;
@@ -105,7 +106,7 @@ function evalHand(recipient) {
 	// necessary to have a function that only adds the hand up, nothing else
 }
 
-function handValue(recipient) {
+function handEval(recipient) {
 	handVal = 0;
 	for (var i = 0; i < recipient.length; i++) {
 		handVal += recipient[i].val;
@@ -150,7 +151,7 @@ function handValue(recipient) {
 	} else if ((handVal > 21) && (isAce(recipient)) === true) {
 		console.log("Ace present, reducing");
 		reduceAce(recipient);
-		handValue(recipient);
+		handEval(recipient);
 	}
 	return handVal;
 	// this function should evaluate the total value of a hand
@@ -158,8 +159,6 @@ function handValue(recipient) {
 	// if a high value ace is present, run reduceAce and re-evaluate
 	// once outcome is reached, assign pot accordingly
 }
-
-var index = fullDeck.map(function(e) { return e.face; }).indexOf('ace');
 
 function isAce(recipient) {
 	var index = recipient.map(function(e) { return e.val; }).indexOf(11);
@@ -180,7 +179,7 @@ function reduceAce(recipient) {
 				 	recipient[index].val = 1;
 				 	break;
 				 }
-	// if a high-value ace is present, it iterates through a hand and reduces it to 1, then breaks
+	// if a high-value ace is present, iterates through a hand and reduces it to 1, then breaks
 	// if no high value ace is present, it breaks
 }
 
@@ -195,13 +194,13 @@ function newMatch(recipient) {
 	}
 	recipient.splice(0, recipient.length);
 	console.log("Hand re-shuffled")
-	// this function returns all cards in play to the original deck
+	// this function returns all cards in a hand to the original deck
 	// it also checks for any low-value aces and resets them to 11 before returning them
 }
 
 function dealerTurn() {
-	var pScore = evalHand(playerHand);
-	var dScore = evalHand(dealerHand);
+	var pScore = handValue(playerHand);
+	var dScore = handValue(dealerHand);
 	if (dScore < pScore) {
 		console.log("Dealer drawing");
 		dealCard(dealerHand);
@@ -210,30 +209,6 @@ function dealerTurn() {
 		pot = 0;
 		newMatch(dealerHand);
 		newMatch(playerHand);
-
-
-
-
-		// while ((pScore > dScore) && (dScore < 21)) {
-		// 	console.log("Dealer draws...");
-		// 	setTimeout(dealCard(dealerHand), 2000)
-		// 	setTimeout(handValue(dealerHand), 4000)
-		// 	if ((dScore === 21) || (dScore > pScore)) {
-		// 		console.log("Dealer wins!");
-		// 		pot = 0;
-		// 		newMatch(playerHand);
-		// 		newMatch(dealerHand);
-		// 		break;
-		// 	} else if (dScore > 21) {
-		// 		consolelog("Player wins!");
-		// 		bankRoll = (bankRoll + (pot * 2));
-		// 		pot = 0;
-		// 		newMatch(dealerHand);
-		// 		newMatch(playerHand);
-		// 		break;
-		// 	}
-		// }
-		
 	}
 	// this function will activate a dealer's turn when the player has chosen to stand
 	// the dealer must continue to draw cards until he either beats the player's hand or busts
