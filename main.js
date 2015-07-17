@@ -205,7 +205,6 @@ function dealerTurn() {
 	if (dScore < pScore) {
 		console.log("Dealer drawing");
 		dealCard(dealerHand);
-		handValue(dealerHand);
 	} else if (dScore >= pScore) {
 		console.log("Dealer wins!");
 		pot = 0;
