@@ -54,10 +54,34 @@ var fullDeck = [{face: "ace", val: 11, "suit": "clubs"},
 				 {face: "three", val: 3, "suit": "diamonds"},
 				 {face: "two", val: 2, "suit": "diamonds"}];
 
+// gives click events to hit and stand buttons
+$("#hit").click(function() {
+	dealCard(playerHand);
+});
+$("#stand").click(function() {
+
+});
+$("#new").click(function() {
+	newMatch(playerHand);
+});
 
 // player and dealer hands
 var playerHand = [];
 var dealerHand = [];
+
+// player starting bankroll and pot
+var bankRoll = 1000;
+var pot = 0;
+
+function placeBet(amt) {
+	if (amt > bankRoll) {
+		console.log("You don't have that much, pobrecito");
+	} else {
+		bankRoll = (bankRoll - amt);
+		pot = (pot + amt);
+	}
+	// allows the player to place a bet on the next hand
+}
 
 function dealCard(recipient) {
 	var rand = fullDeck[Math.floor(Math.random() * fullDeck.length)];
@@ -80,17 +104,43 @@ function handValue(recipient) {
 	if (handVal < 21) {
 		console.log("Under 21");
 	} else if (handVal === 21) {
-		console.log("Blackjack!");
+		if (recipient === playerHand) {
+			console.log("Player Blackjack!");
+			bankRoll = (bankRoll + (pot * 2));
+			pot = 0;
+			newMatch(playerHand);
+			newMatch(dealerHand);
+		} else if (recipient === dealerHand) {
+			console.log("Dealer Blackjack!");
+			pot = 0;
+			newMatch(dealerHand);
+			newMatch(playerHand);
+		}
+		
 	} else if ((handVal > 21) && (isAce(recipient)) === false) {
-			console.log("Busted!");
+		if (recipient === playerHand) {
+			console.log("Player busted!");
+			pot = 0;
+			newMatch(playerHand);
+			newMatch(dealerHand);
+		} else if (recipient === dealerHand) {
+			console.log("Dealer busted!");
+			bankRoll = (bankRoll + (pot * 2));
+			pot = 0;
+			newMatch(dealerHand);
+			newMatch(playerHand);
+		}
+			
 	} else if ((handVal > 21) && (isAce(recipient)) === true) {
 		console.log("Ace present, reducing");
 		reduceAce(recipient);
 		handValue(recipient);
 	}
+	return handVal;
 	// this function should evaluate the total value of a hand
 	// once the value is found, decide if an outcome is triggered
 	// if a high value ace is present, run reduceAce and re-evaluate
+	// once outcome is reached, assign pot accordingly
 }
 
 var index = fullDeck.map(function(e) { return e.face; }).indexOf('ace');
@@ -128,6 +178,27 @@ function newMatch(recipient) {
 		}
 	}
 	recipient.splice(0, recipient.length);
+	console.log("Hand re-shuffled")
 	// this function returns all cards in play to the original deck
 	// it also checks for any low-value aces and resets them to 11 before returning them
+}
+
+function dealerTurn() {
+	var pScore = handValue(playerHand);
+	var dScore = handValue(dealerHand);
+	if (dScore >= pScore) {
+		console.log("Dealer wins!");
+	} else if (pScore > dScore) {
+		while ((pScore > dScore) && (dScore < 21)) {
+			console.log("Dealer draws...");
+			setTimeout(dealCard(dealerHand), 2000)
+			setTimeout(handValue(dealerHand), 4000)
+		}
+		console.log("Dealer wins!");
+		pot = 0;
+		newMatch(playerHand);
+		newMatch(dealerHand);
+	}
+	// this function will activate a dealer's turn when the player has chosen to stand
+	// the dealer must continue to draw cards until he either beats the player's hand or busts
 }
