@@ -6,8 +6,49 @@ html, body {
     background-size: cover;
 }
 
+
+#deck {
+	width: 400px;
+	height: 100px;
+}
+
+#blist {
+	margin-top: 50px;
+}
+
+.button {
+	width: 150px;
+	height: 50px;
+  	font-size: 23px;
+  	font-family: "Adobe Caslon Pro", "Hoefler Text", Georgia, Garamond, Times, serif;
+	font-variant: small-caps;
+	font-weight: bold;
+  	color: lightgray;
+  	background: url("./assets/wood_1_t.jpg");
+  	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    z-index: 1;
+    -webkit-box-shadow: 0 0 1em black;
+	-moz-box-shadow: 0 0 1em black;
+	box-shadow: 0 0 1em black;
+	margin-left: 10px;
+	margin-right: 10px;
+	letter-spacing:0.1em;
+}
+
+#new {
+	position: absolute;
+  	margin: auto;
+  	top: 0;
+  	right: 0;
+  	bottom: 0;
+  	left: 0;
+}
+
 h1 {
-	color: #424242;
+	color: black;
     font-family: "Adobe Caslon Pro", "Hoefler Text", Georgia, Garamond, Times, serif;
 	letter-spacing:0.1em;
 	text-align:center;
@@ -16,6 +57,7 @@ h1 {
 	line-height: 145%;
 	font-size: 75pt;
 	font-variant: small-caps;
+	opacity: 0.5;
 
 }
 
@@ -26,16 +68,52 @@ h1 {
 	-webkit-box-shadow: 0 0 1em black;
 	-moz-box-shadow: 0 0 1em black;
 	box-shadow: 0 0 1em black;
-	-webkit-transition: opacity 400ms ease-in;
-	-moz-transition: opacity 400ms ease-in;
-	transition: opacity 400ms ease-in;
 	position: absolute;
   	margin: auto;
   	top: 0;
   	right: 0;
   	bottom: 0;
   	left: 0;
-  	opacity: 0;
+  	display: none;
+  	z-index: 3;
+}
+
+#bets {
+	background: url("./assets/wood_2_t.jpg");
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 300px;
+    width: 200px;
+    position: absolute; top: 20px; right: 20px;
+    z-index: 4;
+    -webkit-box-shadow: 0 0 1em black;
+	-moz-box-shadow: 0 0 1em black;
+	box-shadow: 0 0 1em black;
+	display: none;
+	font-family: "Adobe Caslon Pro", "Hoefler Text", Georgia, Garamond, Times, serif;
+	font-variant: small-caps;
+	font-size: 15pt;
+}
+
+.bet {
+	background: url("./assets/wood_1_t.jpg");
+  	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    -webkit-box-shadow: 0 0 1em black;
+	-moz-box-shadow: 0 0 1em black;
+	box-shadow: 0 0 1em black;
+	letter-spacing:0.1em;
+	height: 50px;
+	width: 120px;
+	font-family: "Adobe Caslon Pro", "Hoefler Text", Georgia, Garamond, Times, serif;
+	font-variant: small-caps;
+	font-size: 14pt;
+	font-weight: bold;
+	color: lightgray;
 }
 
 .card {
@@ -53,11 +131,13 @@ h1 {
 
   	height:200px;
 
-  	margin: auto;
-
-  	float: left;
+  	margin: 0 auto;
 
 
+}
+
+.dealer {
+	padding-top: 25px;
 }
 
 img {

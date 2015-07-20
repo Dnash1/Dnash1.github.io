@@ -10,18 +10,30 @@
    </head>
    <body>
       <h1>Maritime Blackjack</h1>
+      <div id="bets">
+        <ul>
+          <h3 id="w">Weevils: 50</h3>
+          <h3 id="p">Pot: 0</h3>
+          <button id="b1" class="bet">Bet One</button>
+          <button id="b5" class="bet">Bet Five</button>
+          <button id="b10" class="bet">Bet Ten</button>
+        </ul>
+      </div>
       <div id="gw" class="gamewindow">
+        
         <div id="dh" class="dealer hand"></div>
-        <div id="deck" class="deck hand"></div>
+        <div id="deck" class="deck hand">
+          <ul id="blist">
+            <button id="hit" class="button">Hit</button>
+            <button id="stay" class="button">Stay</button>
+            <!-- <button id="sound" class="button">Sound</button> -->
+          </ul>
+        </div>
         <div id="ph" class="player hand"></div>
       </div>
-      <button id="hit">Hit Me</button>
-      <button id="stay">Stay</button>
-    </br>
-      <button id="new">New Hand</button>
-      <button id="sound">Sound</button>
+      
       <div id="player"></div>
-       
+      <button id="new" class="button">New Game</button>
    </body>
 <script src="main.js"></script>
 </html>

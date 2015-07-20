@@ -65,6 +65,7 @@ $("#stay").click(function() {
 });
 $("#new").click(function() {
 	$("#gw").fadeTo("slow", 1);
+	$("#bets").fadeTo("slow", 1);
 });
 $("#sound").click(function() {
 	if (bgSound === false) {
@@ -76,7 +77,15 @@ $("#sound").click(function() {
 		bgSound = false;
 		console.log("Off");
 	}
-	
+});
+$("#b1").click(function() {
+	placeBet(1);
+});
+$("#b5").click(function() {
+	placeBet(5);
+});
+$("#b10").click(function() {
+	placeBet(10);
 });
 
 // player and dealer hands
@@ -84,7 +93,7 @@ var playerHand = [];
 var dealerHand = [];
 
 // player starting bankroll and pot
-var bankRoll = 1000;
+var bankRoll = 50;
 var pot = 0;
 
 function placeBet(amt) {
@@ -93,6 +102,8 @@ function placeBet(amt) {
 	} else {
 		bankRoll = (bankRoll - amt);
 		pot = (pot + amt);
+		$("#p").text("Pot: " + pot);
+		$("#w").text("Weevils: " + bankRoll);
 	}
 	// allows the player to place a bet on the next hand
 }
@@ -104,7 +115,8 @@ function dealCard(recipient) {
 	console.log(rand);
 	handEval(recipient);
 	if (recipient === playerHand) {
-		$("#ph").append("<img id='cardimg' src='./assets/cards/" + rand.url + "' />");
+		var newCard = $("<img id='cardimg' src='./assets/cards/" + rand.url + "' />").appendTo("#ph");
+		newCard.hide().fadeIn(500);
 	}
 	if (recipient === dealerHand) {
 		$("#dh").append("<img id='cardimg' src='./assets/cards/" + rand.url + "' />");
@@ -143,12 +155,15 @@ function handEval(recipient) {
 		if (recipient === playerHand) {
 			console.log("Player Blackjack!");
 			bankRoll = (bankRoll + (pot * 2));
+			$("#w").text("Weevils: " + bankRoll);
 			pot = 0;
+			$("#p").text("Pot: " + pot);
 			newMatch(playerHand);
 			newMatch(dealerHand);
 		} else if (recipient === dealerHand) {
 			console.log("Dealer Blackjack!");
 			pot = 0;
+			$("#p").text("Pot: " + pot);
 			newMatch(dealerHand);
 			newMatch(playerHand);
 		}
@@ -157,12 +172,15 @@ function handEval(recipient) {
 		if (recipient === playerHand) {
 			console.log("Player busted!");
 			pot = 0;
+			$("#p").text("Pot: " + pot);
 			newMatch(playerHand);
 			newMatch(dealerHand);
 		} else if (recipient === dealerHand) {
 			console.log("Dealer busted!");
 			bankRoll = (bankRoll + (pot * 2));
+			$("#w").text("Weevils: " + bankRoll);
 			pot = 0;
+			$("#p").text("Pot: " + pot);
 			newMatch(dealerHand);
 			newMatch(playerHand);
 		}
@@ -228,14 +246,10 @@ function dealerTurn() {
 	} else if (dScore >= pScore) {
 		console.log("Dealer wins!");
 		pot = 0;
+		$("#p").text("Pot: " + pot);
 		newMatch(dealerHand);
 		newMatch(playerHand);
 	}
 	// this function will activate a dealer's turn when the player has chosen to stand
 	// the dealer must continue to draw cards until he either beats the player's hand or busts
-}
-
-function cardTest() {
-	$("#ph").append("<img id='cardimg' src='./assets/cards/2_of_diamonds.png' />");
-	// $("<div>").attr("class", "card").css("background-image", "url(./assets/cards/2_of_clubs.png)").appendTo("#ph");
 }
