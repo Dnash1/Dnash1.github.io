@@ -1,0 +1,49 @@
+html, body {
+    background: url("./assets/bg_sea.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.gamewindow {
+	background: url("./assets/Dark Wood HP9 (5).jpg");
+	width: 1368px;
+	height: 600px;
+	box-shadow: 0 0 1em black;
+	position: absolute;
+  	margin: auto;
+  	top: 0;
+  	right: 0;
+  	bottom: 0;
+  	left: 0;
+}
+
+.card {
+	background: no-repeat center center fixed;
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 200px;
+    width: 200px;
+}
+
+.hand {
+	width:600px;
+
+  	height:200px;
+
+  	margin:auto;
+
+
+}
+
+img {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 138px;
+	height: 200px;
+	position: relative;
+	margin: auto;
+}
