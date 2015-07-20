@@ -1,5 +1,7 @@
 console.log("main.js responding");
 
+var bgSound = false;
+
 // array that stores the entire deck
 var fullDeck = [{face: "ace", val: 11, "suit": "clubs", "url": "ace_of_clubs.png"},
 				 {face: "king", val: 10, "suit": "clubs", "url": "king_of_clubs.png"},
@@ -62,8 +64,19 @@ $("#stay").click(function() {
 	dealerTurn();
 });
 $("#new").click(function() {
-	newMatch(playerHand);
-	newMatch(dealerHand);
+	$("#gw").fadeTo("slow", 1);
+});
+$("#sound").click(function() {
+	if (bgSound === false) {
+		$("<embed id='video' height='0' width='0' src='https://www.youtube.com/embed/tftX56aCvCs?rel=0&autoplay=1&start=5' />").appendTo("#player");
+		console.log("On");
+		bgSound = true;
+	} else if (bgSound === true) {
+		$("#video").remove();
+		bgSound = false;
+		console.log("Off");
+	}
+	
 });
 
 // player and dealer hands
@@ -199,7 +212,9 @@ function newMatch(recipient) {
 		}
 	}
 	recipient.splice(0, recipient.length);
-	console.log("Hand re-shuffled")
+	console.log("Hand re-shuffled");
+	setTimeout(function() {$("#ph").empty()}, 500);
+	setTimeout(function() {$("#dh").empty()}, 500);
 	// this function returns all cards in a hand to the original deck
 	// it also checks for any low-value aces and resets them to 11 before returning them
 }

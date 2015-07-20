@@ -4,21 +4,23 @@
    <head>
        <meta charset="utf-8">
        <title></title>
+       
        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
        <link rel="stylesheet" type="text/css" href="styles.css">
    </head>
    <body>
-      <div class="gamewindow">
-        <div id="dh" class="hand"></div>
-        <div id="deck" class="hand"></div>
-        <div id="ph" class="hand"></div>
+      <h1>Maritime Blackjack</h1>
+      <div id="gw" class="gamewindow">
+        <div id="dh" class="dealer hand"></div>
+        <div id="deck" class="deck hand"></div>
+        <div id="ph" class="player hand"></div>
       </div>
       <button id="hit">Hit Me</button>
       <button id="stay">Stay</button>
     </br>
       <button id="new">New Hand</button>
-
-
+      <button id="sound">Sound</button>
+      <div id="player"></div>
        
    </body>
 <script src="main.js"></script>

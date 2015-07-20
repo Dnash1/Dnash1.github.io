@@ -6,17 +6,36 @@ html, body {
     background-size: cover;
 }
 
+h1 {
+	color: #424242;
+    font-family: "Adobe Caslon Pro", "Hoefler Text", Georgia, Garamond, Times, serif;
+	letter-spacing:0.1em;
+	text-align:center;
+	margin: 40px auto;
+	text-transform: lowercase;
+	line-height: 145%;
+	font-size: 75pt;
+	font-variant: small-caps;
+
+}
+
 .gamewindow {
 	background: url("./assets/Dark Wood HP9 (5).jpg");
 	width: 1368px;
 	height: 600px;
+	-webkit-box-shadow: 0 0 1em black;
+	-moz-box-shadow: 0 0 1em black;
 	box-shadow: 0 0 1em black;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
 	position: absolute;
   	margin: auto;
   	top: 0;
   	right: 0;
   	bottom: 0;
   	left: 0;
+  	opacity: 0;
 }
 
 .card {
@@ -30,18 +49,20 @@ html, body {
 }
 
 .hand {
-	width:600px;
+	width:1200px;
 
   	height:200px;
 
-  	margin:auto;
+  	margin: auto;
+
+  	float: left;
 
 
 }
 
 img {
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
 	width: 138px;
 	height: 200px;
 	position: relative;
