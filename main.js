@@ -87,6 +87,23 @@ $("#b5").click(function() {
 $("#b10").click(function() {
 	placeBet(10);
 });
+$("#deal").click(function() {
+	if (pot === 0) {
+		noBet();
+	}
+	else {
+		initialDeal(playerHand);
+		initialDeal(playerHand);
+		initialDeal(dealerHand);
+		initialDeal(dealerHand);
+		$("#deal").fadeTo("fast", 0);
+		$(".main").fadeTo("fast", 1);
+		$(".bet").fadeTo("fast", 0);
+	}
+
+});
+
+var firstCard = true;
 
 // player and dealer hands
 var playerHand = [];
@@ -108,6 +125,27 @@ function placeBet(amt) {
 	// allows the player to place a bet on the next hand
 }
 
+function initialDeal(recipient) {
+	var rand = fullDeck[Math.floor(Math.random() * fullDeck.length)];
+	recipient.push(rand);
+	fullDeck.pop(rand);
+	console.log(rand);
+	if (recipient === playerHand) {
+		var newCard = $("<img id='cardimg' src='./assets/cards/" + rand.url + "' />").appendTo("#ph");
+		newCard.hide().fadeIn(500);
+		handEval(playerHand);
+	}
+	else if ((recipient === dealerHand) && (firstCard === true)) {
+		var newCard = $("<img id='cardimg' src='./assets/cards/back.png' />").appendTo("#dh");
+		newCard.hide().fadeIn(500);
+		firstCard = false;
+	}
+	else if ((recipient === dealerHand) && (firstCard === false)) {
+		var newCard = $("<img id='cardimg' src='./assets/cards/" + rand.url + "' />").appendTo("#dh");
+		newCard.hide().fadeIn(500);
+	}
+}
+
 function dealCard(recipient) {
 	var rand = fullDeck[Math.floor(Math.random() * fullDeck.length)];
 	recipient.push(rand);
@@ -118,8 +156,9 @@ function dealCard(recipient) {
 		var newCard = $("<img id='cardimg' src='./assets/cards/" + rand.url + "' />").appendTo("#ph");
 		newCard.hide().fadeIn(500);
 	}
-	if (recipient === dealerHand) {
-		$("#dh").append("<img id='cardimg' src='./assets/cards/" + rand.url + "' />");
+	else if (recipient === dealerHand) {
+		var newCard = $("<img id='cardimg' src='./assets/cards/" + rand.url + "' />").appendTo("#dh");
+		newCard.hide().fadeIn(500);
 	}
 	// this function will deal another card to the specified recipient
 	// take a random sample from the deck array and push it into the hand array, while popping it from the deck
@@ -154,6 +193,7 @@ function handEval(recipient) {
 	} else if (handVal === 21) {
 		if (recipient === playerHand) {
 			console.log("Player Blackjack!");
+			showOut("Player");
 			bankRoll = (bankRoll + (pot * 2));
 			$("#w").text("Weevils: " + bankRoll);
 			pot = 0;
@@ -162,6 +202,7 @@ function handEval(recipient) {
 			newMatch(dealerHand);
 		} else if (recipient === dealerHand) {
 			console.log("Dealer Blackjack!");
+			showOut("Dealer");
 			pot = 0;
 			$("#p").text("Pot: " + pot);
 			newMatch(dealerHand);
@@ -171,12 +212,14 @@ function handEval(recipient) {
 	} else if ((handVal > 21) && (isAce(recipient)) === false) {
 		if (recipient === playerHand) {
 			console.log("Player busted!");
+			showOut("Dealer");
 			pot = 0;
 			$("#p").text("Pot: " + pot);
 			newMatch(playerHand);
 			newMatch(dealerHand);
 		} else if (recipient === dealerHand) {
 			console.log("Dealer busted!");
+			showOut("Player");
 			bankRoll = (bankRoll + (pot * 2));
 			$("#w").text("Weevils: " + bankRoll);
 			pot = 0;
@@ -231,8 +274,12 @@ function newMatch(recipient) {
 	}
 	recipient.splice(0, recipient.length);
 	console.log("Hand re-shuffled");
+	firstCard = true;
 	setTimeout(function() {$("#ph").empty()}, 500);
 	setTimeout(function() {$("#dh").empty()}, 500);
+	setTimeout(function() {$(".bet").fadeTo("fast", 1)}, 500);
+	setTimeout(function() {$("#deal").fadeTo("fast", 1);}, 500);
+	setTimeout(function() {$(".main").fadeTo("fast", 0);}, 500);
 	// this function returns all cards in a hand to the original deck
 	// it also checks for any low-value aces and resets them to 11 before returning them
 }
@@ -241,10 +288,14 @@ function dealerTurn() {
 	var pScore = handValue(playerHand);
 	var dScore = handValue(dealerHand);
 	if (dScore < pScore) {
-		console.log("Dealer drawing");
-		dealCard(dealerHand);
+		setTimeout(function() {
+			console.log("Dealer drawing");
+			dealCard(dealerHand);
+		}, 1000);
+		
 	} else if (dScore >= pScore) {
 		console.log("Dealer wins!");
+		showOut("Dealer");
 		pot = 0;
 		$("#p").text("Pot: " + pot);
 		newMatch(dealerHand);
@@ -253,3 +304,14 @@ function dealerTurn() {
 	// this function will activate a dealer's turn when the player has chosen to stand
 	// the dealer must continue to draw cards until he either beats the player's hand or busts
 }
+
+function showOut(winner) {
+	$("#outcome").text(winner + " wins!").fadeTo("fast", 1);
+	setTimeout(function() {$("#outcome").toggle()}, 1000);
+}
+
+function noBet() {
+	$("#outcome").text("No Bet").fadeTo("fast", 1);
+	setTimeout(function() {$("#outcome").toggle()}, 1000);
+}
+

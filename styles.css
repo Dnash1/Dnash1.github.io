@@ -6,18 +6,58 @@ html, body {
     background-size: cover;
 }
 
+.main {
+	opacity: 0;
+}
 
 #deck {
-	width: 400px;
+	width: 600px;
 	height: 100px;
 }
+
+#outcome {
+	background: url("./assets/Dark Wood HP9 (6).jpg");
+	width: 400px;
+	height: 50px;
+	-webkit-box-shadow: 0 0 1em black;
+	-moz-box-shadow: 0 0 1em black;
+	box-shadow: 0 0 1em black;
+	position: absolute;
+  	margin: auto;
+  	top: 0;
+  	right: 0;
+  	bottom: 0;
+  	left: 0;
+  	display: none;
+  	z-index: 4;
+  	font-family: "Adobe Caslon Pro", "Hoefler Text", Georgia, Garamond, Times, serif;
+	font-variant: small-caps;
+	font-size: 30pt;
+	color: lightgray;
+	text-align: center;
+	padding-top: 5px;
+}
+
 
 #blist {
 	margin-top: 50px;
 }
 
+#sound {
+	background: url("./assets/sound.png");
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+	height: 22px;
+	width: 25px;
+	margin-top: 5px;
+	margin-left: 5px;
+	outline: none;
+}
+
 .button {
-	width: 150px;
+	width: 160px;
 	height: 50px;
   	font-size: 23px;
   	font-family: "Adobe Caslon Pro", "Hoefler Text", Georgia, Garamond, Times, serif;
@@ -36,6 +76,8 @@ html, body {
 	margin-left: 10px;
 	margin-right: 10px;
 	letter-spacing:0.1em;
+	text-shadow: 1px 1px 2px black;
+	outline: none;
 }
 
 #new {
@@ -45,6 +87,7 @@ html, body {
   	right: 0;
   	bottom: 0;
   	left: 0;
+  	outline: none;
 }
 
 h1 {
@@ -114,6 +157,8 @@ h1 {
 	font-size: 14pt;
 	font-weight: bold;
 	color: lightgray;
+	text-shadow: 1px 1px 2px black;
+	outline: none;
 }
 
 .card {
