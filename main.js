@@ -103,6 +103,8 @@ $("#deal").click(function() {
 
 });
 
+var bell = new Audio("./assets/bell.wav");
+
 var firstCard = true;
 
 // player and dealer hands
@@ -193,6 +195,7 @@ function handEval(recipient) {
 	} else if (handVal === 21) {
 		if (recipient === playerHand) {
 			console.log("Player Blackjack!");
+			bell.play();
 			showOut("Player");
 			var cardImg = $("img")[0];
 			var holeCard = $(dealerHand)[0];
@@ -228,6 +231,7 @@ function handEval(recipient) {
 			newMatch(dealerHand);
 		} else if (recipient === dealerHand) {
 			console.log("Dealer busted!");
+			bell.play();
 			showOut("Player");
 			var cardImg = $("img")[0];
 			var holeCard = $(dealerHand)[0];
@@ -287,11 +291,11 @@ function newMatch(recipient) {
 	recipient.splice(0, recipient.length);
 	console.log("Hand re-shuffled");
 	firstCard = true;
-	setTimeout(function() {$("#ph").empty()}, 3000);
-	setTimeout(function() {$("#dh").empty()}, 3000);
-	setTimeout(function() {$(".bet").fadeTo("fast", 1)}, 3000);
-	setTimeout(function() {$("#deal").fadeTo("fast", 1);}, 3000);
-	setTimeout(function() {$(".main").fadeTo("fast", 0);}, 3000);
+	setTimeout(function() {$("#ph").empty()}, 4000);
+	setTimeout(function() {$("#dh").empty()}, 4000);
+	setTimeout(function() {$(".bet").fadeTo("fast", 1)}, 4000);
+	setTimeout(function() {$("#deal").fadeTo("fast", 1);}, 4000);
+	setTimeout(function() {$(".main").fadeTo("fast", 0);}, 4000);
 	// this function returns all cards in a hand to the original deck
 	// it also checks for any low-value aces and resets them to 11 before returning them
 }
@@ -322,7 +326,7 @@ function dealerTurn() {
 
 function showOut(winner) {
 	$("#outcome").text(winner + " wins!").fadeTo("fast", 1);
-	setTimeout(function() {$("#outcome").toggle()}, 3000);
+	setTimeout(function() {$("#outcome").toggle()}, 4000);
 }
 
 function divAlert(msg) {

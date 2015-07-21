@@ -20,6 +20,7 @@ The MVP for this project was to create a functioning program that could play a s
   <li>Choose to continue hitting or stand on their current hand</li>
   <li>Expect the dealer to hit accordingly until a win or bust</li>
   <li>Be disallowed from dealing without making a bet or betting beyond their means</li>
+  <li>Expect the value of aces to change according to total hand value</li>
   <li>View the dealer's "hole" card at the end of a round</li>
   <li>Enjoy the enchanting sounds of the sea</li>
 </ul>
