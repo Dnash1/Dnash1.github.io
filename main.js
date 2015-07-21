@@ -89,7 +89,7 @@ $("#b10").click(function() {
 });
 $("#deal").click(function() {
 	if (pot === 0) {
-		noBet();
+		divAlert("No Bet");
 	}
 	else {
 		initialDeal(playerHand);
@@ -115,7 +115,7 @@ var pot = 0;
 
 function placeBet(amt) {
 	if (amt > bankRoll) {
-		console.log("You don't have that much, pobrecito");
+		divAlert("Not Enough")
 	} else {
 		bankRoll = (bankRoll - amt);
 		pot = (pot + amt);
@@ -194,6 +194,9 @@ function handEval(recipient) {
 		if (recipient === playerHand) {
 			console.log("Player Blackjack!");
 			showOut("Player");
+			var cardImg = $("img")[0];
+			var holeCard = $(dealerHand)[0];
+			setTimeout(function() {$(cardImg).attr("src", "./assets/cards/" + holeCard.url)}, 500);
 			bankRoll = (bankRoll + (pot * 2));
 			$("#w").text("Weevils: " + bankRoll);
 			pot = 0;
@@ -203,6 +206,9 @@ function handEval(recipient) {
 		} else if (recipient === dealerHand) {
 			console.log("Dealer Blackjack!");
 			showOut("Dealer");
+			var cardImg = $("img")[0];
+			var holeCard = $(dealerHand)[0];
+			setTimeout(function() {$(cardImg).attr("src", "./assets/cards/" + holeCard.url)}, 500);
 			pot = 0;
 			$("#p").text("Pot: " + pot);
 			newMatch(dealerHand);
@@ -213,6 +219,9 @@ function handEval(recipient) {
 		if (recipient === playerHand) {
 			console.log("Player busted!");
 			showOut("Dealer");
+			var cardImg = $("img")[0];
+			var holeCard = $(dealerHand)[0];
+			setTimeout(function() {$(cardImg).attr("src", "./assets/cards/" + holeCard.url)}, 500);
 			pot = 0;
 			$("#p").text("Pot: " + pot);
 			newMatch(playerHand);
@@ -220,6 +229,9 @@ function handEval(recipient) {
 		} else if (recipient === dealerHand) {
 			console.log("Dealer busted!");
 			showOut("Player");
+			var cardImg = $("img")[0];
+			var holeCard = $(dealerHand)[0];
+			setTimeout(function() {$(cardImg).attr("src", "./assets/cards/" + holeCard.url)}, 500);
 			bankRoll = (bankRoll + (pot * 2));
 			$("#w").text("Weevils: " + bankRoll);
 			pot = 0;
@@ -275,11 +287,11 @@ function newMatch(recipient) {
 	recipient.splice(0, recipient.length);
 	console.log("Hand re-shuffled");
 	firstCard = true;
-	setTimeout(function() {$("#ph").empty()}, 500);
-	setTimeout(function() {$("#dh").empty()}, 500);
-	setTimeout(function() {$(".bet").fadeTo("fast", 1)}, 500);
-	setTimeout(function() {$("#deal").fadeTo("fast", 1);}, 500);
-	setTimeout(function() {$(".main").fadeTo("fast", 0);}, 500);
+	setTimeout(function() {$("#ph").empty()}, 3000);
+	setTimeout(function() {$("#dh").empty()}, 3000);
+	setTimeout(function() {$(".bet").fadeTo("fast", 1)}, 3000);
+	setTimeout(function() {$("#deal").fadeTo("fast", 1);}, 3000);
+	setTimeout(function() {$(".main").fadeTo("fast", 0);}, 3000);
 	// this function returns all cards in a hand to the original deck
 	// it also checks for any low-value aces and resets them to 11 before returning them
 }
@@ -296,6 +308,9 @@ function dealerTurn() {
 	} else if (dScore >= pScore) {
 		console.log("Dealer wins!");
 		showOut("Dealer");
+		var cardImg = $("img")[0];
+		var holeCard = $(dealerHand)[0];
+		setTimeout(function() {$(cardImg).attr("src", "./assets/cards/" + holeCard.url)}, 500);
 		pot = 0;
 		$("#p").text("Pot: " + pot);
 		newMatch(dealerHand);
@@ -307,11 +322,11 @@ function dealerTurn() {
 
 function showOut(winner) {
 	$("#outcome").text(winner + " wins!").fadeTo("fast", 1);
-	setTimeout(function() {$("#outcome").toggle()}, 1000);
+	setTimeout(function() {$("#outcome").toggle()}, 3000);
 }
 
-function noBet() {
-	$("#outcome").text("No Bet").fadeTo("fast", 1);
+function divAlert(msg) {
+	$("#outcome").text(msg).fadeTo("fast", 1);
 	setTimeout(function() {$("#outcome").toggle()}, 1000);
 }
 
