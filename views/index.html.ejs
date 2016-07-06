@@ -1,0 +1,42 @@
+<!doctype html>
+
+<html>
+   <head>
+       <meta charset="utf-8">
+       <title></title>
+       
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+       <link rel="stylesheet" type="text/css" href="styles.css">
+   </head>
+
+   <body>
+    <div id="outcome"></div>
+      <button id="sound" style="border: 0"></button>
+      <h1>Maritime Blackjack</h1>
+      <div id="bets">
+        <ul>
+          <h3 id="w">Weevils: 50</h3>
+          <h3 id="p">Pot: 0</h3>
+          <button id="b1" class="bet">Bet One</button>
+          <button id="b5" class="bet">Bet Five</button>
+          <button id="b10" class="bet">Bet Ten</button>
+        </ul>
+      </div>
+      <div id="gw" class="gamewindow">
+        
+        <div id="dh" class="dealer hand"></div>
+        <div id="deck" class="deck hand">
+          <ul id="blist">
+            <button id="hit" class="main button">Hit</button>
+            <button id="deal" class="deal button">Deal</button>
+            <button id="stay" class="main button">Stay</button>
+          </ul>
+        </div>
+        <div id="ph" class="player hand"></div>
+      </div>
+      
+      <div id="player"></div>
+      <button id="new" class="button">New Game</button>
+   </body>
+<script src="main.js"></script>
+</html>

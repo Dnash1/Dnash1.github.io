@@ -1,5 +1,4 @@
 console.log("main.js responding");
-
 var bgSound = false;
 
 // array that stores the entire deck
@@ -56,7 +55,7 @@ var fullDeck = [{face: "ace", val: 11, "suit": "clubs", "url": "ace_of_clubs.png
 				 {face: "three", val: 3, "suit": "diamonds", "url": "3_of_diamonds.png"},
 				 {face: "two", val: 2, "suit": "diamonds", "url": "2_of_diamonds.png"}];
 
-// gives click events to hit and stand buttons
+// gives click events to all buttons
 $("#hit").click(function() {
 	dealCard(playerHand);
 });
@@ -67,6 +66,8 @@ $("#new").click(function() {
 	$("#gw").fadeTo("slow", 1);
 	$("#bets").fadeTo("slow", 1);
 });
+// for the ambient sound, creates a div with a height and width of 0 that contains the video with autoplay
+// toggling off nukes the div
 $("#sound").click(function() {
 	if (bgSound === false) {
 		$("<embed id='video' height='0' width='0' src='https://www.youtube.com/embed/tftX56aCvCs?rel=0&autoplay=1&start=5' />").appendTo("#player");
@@ -87,6 +88,7 @@ $("#b5").click(function() {
 $("#b10").click(function() {
 	placeBet(10);
 });
+// deal function throws two cards into both hands and hides the deal button, reveals stay/hit buttons
 $("#deal").click(function() {
 	if (pot === 0) {
 		divAlert("No Bet");
@@ -126,7 +128,7 @@ function placeBet(amt) {
 	}
 	// allows the player to place a bet on the next hand
 }
-
+// initial deal uses firstCard variable to set the dealer's hole card to a hidden image
 function initialDeal(recipient) {
 	var rand = fullDeck[Math.floor(Math.random() * fullDeck.length)];
 	recipient.push(rand);
@@ -324,6 +326,8 @@ function dealerTurn() {
 	// the dealer must continue to draw cards until he either beats the player's hand or busts
 }
 
+// these functions display the div with the winning outcome
+// divAlert is just in case i need random shit alerted to the player, used for "No Bet" and "Not Enough"
 function showOut(winner) {
 	$("#outcome").text(winner + " wins!").fadeTo("fast", 1);
 	setTimeout(function() {$("#outcome").toggle()}, 4000);
